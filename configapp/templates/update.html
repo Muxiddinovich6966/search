@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+<div>
+  {% block body %}
+  <form action="{% url 'update_new' new.pk %}" method="post">
+    {% csrf_token %} {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary btn-block">
+      Yangilik qo'shish
+    </button>
+  </form>
+  {% endblock %}
+</div>

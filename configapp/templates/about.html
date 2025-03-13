@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+<div>
+  {% block body %}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{new.title}}</h5>
+      {% if new.photo %}
+      <img src="{{new.photo.url}}" alt="" width="350" />
+      {% else %}
+      <img src="http://picsum.photos/200" alt="" width="350" />
+      {% endif %}
+    </div>
+    <p class="card-text">
+      {{new.context}}<small class="text-muted"><br />{{new.created_ed}}</small>
+    </p>
+    <a href="{% url 'update_new' new.pk %}" class="btn btn-primary"
+      >Update...</a
+    >
+  </div>
+  {% endblock %}
+</div>

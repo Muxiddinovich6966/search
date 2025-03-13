@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+<div>
+  {% block body %}
+  <form
+    method="GET"
+    action="{% url 'search_news' %}"
+    class="d-flex justify-content-end mb-4"
+  >
+    <input
+      type="text"
+      name="q"
+      class="form-control me-2 w-25"
+      placeholder="Qidirish..."
+      value="{{ query }}"
+    />
+    <button type="submit" class="btn btn-primary">Qidirish</button>
+  </form>
+
+  <div class="row">
+    <div class="col-3 mt-4">
+      <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">Yangiliklar</li>
+        {% for cat in categories%}
+
+        <li class="list-group-item">
+          <a href="{% url 'categories' cat.pk %}">{{ cat.title }}</a>
+        </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-9 mt-4">
+      {% for item in news %}
+
+      <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <strong>{{ item.category }} | {{item.id}}</strong>
+        </div>
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-4 text-center">
+              {% if item.photo %}
+              <img
+                src="{{ item.photo.url }}"
+                alt=""
+                class="img-fluid rounded-3 shadow"
+              />
+              {% else %}
+              <img
+                src="http://picsum.photos/350/250"
+                alt=""
+                class="img-fluid rounded-3 shadow"
+              />
+              {% endif %}
+            </div>
+
+            <div class="col-md-8">
+              <h5 class="card-title text-primary fw-bold">{{ item.title }}</h5>
+              <p class="card-text text-muted">
+                {{ item.context | safe | linebreaks | truncatewords:40 }}
+              </p>
+              <a
+                href="{% url 'news_detail' item.id %}"
+                class="btn btn-outline-primary"
+              >
+                Batafsil...
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer text-muted text-end">
+          <small>{{ item.created_ed | date:'Y-m-d' }}</small>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}
+</div>

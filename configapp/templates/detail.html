@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block body %}
+<div class="container mt-4">
+  <div class="card shadow-lg">
+    <!-- Header: Yangilik sarlavhasi -->
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">{{ new.title }}</h3>
+    </div>
+
+    <!-- Card body: Rasm va kontekst -->
+    <div class="card-body">
+      <div class="row align-items-center">
+        <!-- Rasm joylashuvi -->
+        <div class="col-md-5 text-center">
+          {% if new.photo %}
+          <img
+            src="{{ new.photo.url }}"
+            alt="{{ new.title }}"
+            class="img-fluid rounded shadow"
+          />
+          {% else %}
+          <img
+            src="http://picsum.photos/400/300"
+            alt="No image"
+            class="img-fluid rounded shadow"
+          />
+          {% endif %}
+        </div>
+
+        <!-- Matn joylashuvi -->
+        <div class="col-md-7">
+          <p class="card-text text-muted">
+            {{ new.context | safe | linebreaks }}
+          </p>
+          <a href="{% url 'index' %}" class="btn btn-outline-primary mt-3">
+            🔙 Bosh sahifaga qaytish
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer: Sana -->
+    <div class="card-footer text-muted text-end">
+      <small>📅 {{ new.created_ed | date:'Y-m-d' }}</small>
+    </div>
+  </div>
+</div>
+{% endblock %}
