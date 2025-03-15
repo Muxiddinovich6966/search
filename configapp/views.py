@@ -1,7 +1,8 @@
+from django.contrib.auth import authenticate, login
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
-from configapp.forms import NewsForm
+from configapp.forms import NewsForm, UserLoginForm
 from .models import News, Categories
 
 
@@ -71,3 +72,21 @@ def search_view(request):
 def new_detail(request, new_id):
     new = get_object_or_404(News, id=new_id)
     return render(request, 'detail.html', {'new': new})
+
+
+
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username , password=password)
+        if user is not None:
+            login(request , user)
+            return redirect('index')
+
+        else:
+            form = UserLoginForm()
+
+        return render(request,'lohin.html',{'form':form})

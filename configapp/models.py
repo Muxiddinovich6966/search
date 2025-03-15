@@ -1,3 +1,5 @@
+
+from django.contrib.auth.forms import AuthenticationForm
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -26,3 +28,15 @@ class News(models.Model):
         verbose_name = "NEW"
         verbose_name_plural = "NEWS"
         ordering = ['-created_ed']
+
+
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    lastname = models.CharField(max_length=25)
+    middleName = models.CharField(max_length=25)
+    year = models.DateField(null=True)
+    code = models.CharField(null=True, max_length=50)
+
+    def __str__(self):
+        return self.user.username
+

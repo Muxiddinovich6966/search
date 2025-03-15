@@ -11,4 +11,6 @@ urlpatterns = [
     path('update_new/<int:new_id>/', new_update, name='update_new'),
     path('new_about/<int:new_id>/', new_about, name='new_about'),
     path('add_news/', news_add, name='news_add'),
+    path('', loginPage, name='news_add'),
+
 ]
