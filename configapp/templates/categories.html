@@ -7,16 +7,27 @@
       {% for item in news%}
 
       <div class="card">
-        <div class="card-header">{{item.category}}</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-4">
-              {% if item.photo %}
-              <img src="{{item.photo.url}}" alt="" width="350" />
-              {% else %}
-              <img src="http://picsum.photos/200" alt="" width="350" />
-              {% endif %}
-            </div>
+  <div class="card-header">{{ item.category }}</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-4 text-center">
+        {% if item.photo %}
+          {% if item.photo.url|lower|slice:'-4:' == ".mp4" %}
+            <video width="250" controls class="rounded shadow">
+              <source src="{{ item.photo.url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          {% else %}
+            <img src="{{ item.photo.url }}" alt="" width="350" class="rounded shadow">
+          {% endif %}
+        {% else %}
+          <img src="http://picsum.photos/350" alt="No image" width="350" class="rounded shadow">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
 
             <div class="col-8">
               <h5 class="card-title">{{item.title}}</h5>

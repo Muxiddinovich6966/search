@@ -8,23 +8,23 @@
 
     <!-- Card body: Rasm va kontekst -->
     <div class="card-body">
-      <div class="row align-items-center">
-        <!-- Rasm joylashuvi -->
-        <div class="col-md-5 text-center">
-          {% if new.photo %}
-          <img
-            src="{{ new.photo.url }}"
-            alt="{{ new.title }}"
-            class="img-fluid rounded shadow"
-          />
-          {% else %}
-          <img
-            src="http://picsum.photos/400/300"
-            alt="No image"
-            class="img-fluid rounded shadow"
-          />
-          {% endif %}
-        </div>
+  <div class="row align-items-center">
+    <!-- Media (Rasm yoki Video) -->
+    <div class="col-md-5 text-center">
+      {% if new.photo %}
+        {% if new.photo.url|lower|slice:'-4:' == ".mp4" %}
+          <video width="50%" controls class="rounded-3 shadow">
+            <source src="{{ new.photo.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% else %}
+          <img src="{{ new.photo.url }}" alt="{{ new.title }}" class="img-fluid rounded shadow">
+        {% endif %}
+      {% else %}
+        <img src="http://picsum.photos/400/300" alt="No image" class="img-fluid rounded shadow">
+      {% endif %}
+    </div>
+
 
         <!-- Matn joylashuvi -->
         <div class="col-md-7">

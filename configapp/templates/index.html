@@ -40,20 +40,20 @@
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col-md-4 text-center">
-              {% if item.photo %}
-              <img
-                src="{{ item.photo.url }}"
-                alt=""
-                class="img-fluid rounded-3 shadow"
-              />
-              {% else %}
-              <img
-                src="http://picsum.photos/350/250"
-                alt=""
-                class="img-fluid rounded-3 shadow"
-              />
-              {% endif %}
-            </div>
+            {% if item.photo %}
+    {% if item.photo.url|lower|slice:'-4:' == ".mp4" %}
+      <video width="250" controls class="rounded-3 shadow">
+        <source src="{{ item.photo.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% else %}
+      <img src="{{ item.photo.url }}" alt="" class="img-fluid rounded-3 shadow" />
+    {% endif %}
+  {% else %}
+    <img src="http://picsum.photos/350/250" alt="" class="img-fluid rounded-3 shadow" />
+  {% endif %}
+</div>
+
 
             <div class="col-md-8">
               <h5 class="card-title text-primary fw-bold">{{ item.title }}</h5>

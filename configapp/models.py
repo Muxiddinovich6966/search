@@ -17,9 +17,10 @@ class News(models.Model):
     created_ed = models.DateTimeField(auto_now_add=True)
     updated_ed = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name="news_get")
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
+    photo = models.FileField(upload_to='media/%Y/%m/%d/')
     is_bool = models.BooleanField(default=True)
     views = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.title
